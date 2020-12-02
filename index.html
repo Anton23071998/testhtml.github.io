@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=UTF-8 />
+    <link rel="stylesheet" type="text/css" href="css.css" />
+  </head>
+  <body>
+	<script src="js/lib/three.min.js"></script>
+    <script src="js/lib/three.js"></script>
+	<script src="js/lib/GLTFLoader.js"></script>
+	<script src="http://threejs.org/examples/js/loaders/MTLLoader.js"></script>
+    <script src="http://threejs.org/examples/js/loaders/OBJLoader.js"></script>
+	
+	<script src="js/lib/OrbitControls.js"></script>
+	
+    <script>
+	
+	var scene = new THREE.Scene();
+
+var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
+camera.position.z = 250;
+camera.lookAt( scene.position );
+
+var directionalLight = new THREE.DirectionalLight( 0xffeedd );
+directionalLight.position.set( 0, 0, 1 ).normalize();
+scene.add( directionalLight );
+
+var mesh = null;
+
+var house = new THREE.MTLLoader();
+house.setPath( "js/" );
+house.load( 'House.mtl', function( materials ) {
+
+  materials.preload();
+
+  var objLoader = new THREE.OBJLoader();
+  objLoader.setMaterials( materials );
+  objLoader.setPath( "js/" );
+  objLoader.load( 'House.obj', function ( object ) {
+
+    mesh = object;
+    mesh.position.y = -50;
+	mesh.position.x = 0;
+	mesh.rotation.y = 40;
+    scene.add( mesh );
+
+  } );
+
+} );
+
+var flower = new THREE.MTLLoader();
+flower.setPath( "js/" );
+flower.load( 'ovosch.mtl', function( materials ) {
+
+  materials.preload();
+
+  var objLoader = new THREE.OBJLoader();
+  objLoader.setMaterials( materials );
+  objLoader.setPath( "js/" );
+  objLoader.load( 'ovosch.obj', function ( object ) {
+
+    mesh = object;
+    mesh.position.y = -50;
+	mesh.position.x = -100;
+	mesh.position.z = -100;
+	mesh.rotation.y = 10;
+    scene.add( mesh );
+
+  } );
+
+} );
+
+var snowman = new THREE.MTLLoader();
+snowman.setPath( "js/" );
+snowman.load( 'snowman.mtl', function( materials ) {
+
+  materials.preload();
+
+  var objLoader = new THREE.OBJLoader();
+  objLoader.setMaterials( materials );
+  objLoader.setPath( "js/" );
+  objLoader.load( 'snowman.obj', function ( object ) {
+
+    mesh = object;
+    mesh.position.y = -50;
+	mesh.position.x = 90;
+	mesh.rotation.x = -75;
+    scene.add( mesh );
+
+  } );
+
+} );
+
+var robot = new THREE.MTLLoader();
+robot.setPath( "js/" );
+robot.load( 'robot.mtl', function( materials ) {
+
+  materials.preload();
+
+  var objLoader = new THREE.OBJLoader();
+  objLoader.setMaterials( materials );
+  objLoader.setPath( "js/" );
+  objLoader.load( 'robot.obj', function ( object ) {
+
+    mesh = object;
+    mesh.position.y = -60;
+	mesh.position.x = -140;
+	mesh.rotation.y = 90;
+    scene.add( mesh );
+
+  } );
+
+} );
+
+var renderer = new THREE.WebGLRenderer();
+renderer.setPixelRatio( window.devicePixelRatio );
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor(0xccccff);
+document.body.appendChild( renderer.domElement );
+
+animate();
+
+function animate() {
+
+  requestAnimationFrame( animate );
+
+  renderer.render( scene, camera );
+
+}
+    </script>
+  </body> 
+</html>
+	
